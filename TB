@@ -1,0 +1,114 @@
+conky.config = {
+-- **********************************************************************
+-- TB by: Logicbox aka Logicboxxx
+
+-- E-Mail: logicbox@tuta.io
+-- Github: https://github.com/Logicboxxx
+-- **********************************************************************
+	total_run_times = 0,
+ 	detect_battery = 'BAT0',
+	update_interval = 1,
+	update_interval_on_battery = 10,
+
+
+
+	background = true,
+	double_buffer = true,
+	no_buffers = true,
+	alignment = 'top_middle',
+
+	pad_percents = 2,
+
+	top_name_width = 9,
+	border_width = 1,
+	default_color = 'white',
+	default_outline_color = 'white',
+	default_shade_color = 'white',
+	draw_borders = false,
+	draw_graph_borders = true,
+	draw_outline = false,
+	draw_shades = false,
+
+	gap_x = -15,
+	gap_y = 10,
+
+	forced_redraw = false,
+	out_to_console = false,
+	out_to_stderr = false,
+	extra_newline = false,
+
+	own_window = true,
+	own_window_class = 'conky-semi',
+	own_window_type = 'normal',
+	own_window_transparent = true,
+	own_window_colour = '000000',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+	own_window_hints = 'undecorated,below,sticky,skip_pager,skip_taskbar',
+
+ 	format_human_readable = true,
+	cpu_avg_samples = 2,
+
+	
+	short_units = true,
+
+	max_text_width = 0,
+	minimum_width = 1190, minimum_height = 0,
+	
+	uppercase = false,
+	use_spacer = 'none',
+	override_utf8_locale = true,
+	use_xft = true, 
+	xftalpha = 1,
+
+	font = 'Droid Sans:size=10',
+	color0 = 'tan1',
+
+
+};
+conky.text = [[
+${alignc}\
+${color0}Operating System:${color} ${execi 999999 lsb_release -ds}\
+${offset 5}${color0}Kernel:${color} ${kernel}\
+${offset 5}${color0}Uptime:${color} ${uptime_short}\
+${offset 5}${color0}Hostname:${color} ${nodename}\
+${offset 5}${color0}Machine:${color} ${machine}\
+${offset 5}${color0}System Updates:${color} ${execi 600 apt list --upgradable | grep -c upgradable | wc -l}\
+${offset 5}${color0}Security Updates:${color} ${execi 600 apt list --upgradable | grep security | wc -l}
+${alignc}\
+${color0}Desktop Environment: ${color}${execi 900 echo $XDG_CURRENT_DESKTOP}\
+${offset 5}${color0}Windows Manager:${color} ${execi 900 wmctrl -m | grep Name: | awk '{print $2}'}\
+${offset 5}${color0}Screen Resolution:${color} ${execi 999 xrandr | grep '*' | awk '{print $1}'}\
+${offset 5}${color0}Display Server:${color} ${exec echo $XDG_SESSION_TYPE}\
+${offset 5}${color0}Keyboard Layout:${color} ${keyboard_layout}\
+${offset 5}${color0}Caps Lock:${color} ${key_caps_lock}\
+${offset 5}${color0}Num Lock:${color} ${key_num_lock}\
+${offset 5}${color0}Scroll Lock:${color} ${key_scroll_lock}
+${color0}${hr 1}${color}
+${color0}${voffset 10}Cpu:${color} ${cpu cpu0}% ${if_match ${cpu cpu0} <= 25}${color green}${else}${if_match ${cpu cpu0} <= 50}${color yellow}${else}{if_match ${cpu cpu0} <= 75}${color orange}${else}${color red}${endif}${endif}${endif} ${cpubar cpu0 8,110}${color}\
+${offset 20}${color0}Mem:${color} ${memperc}%${if_match ${memperc} <= 25}${color green}${else}${if_match ${memperc} <= 50}${color yellow}${else}${if_match ${memperc} <= 75}${color orange}${else}${color red}${endif}${endif}${endif} ${membar 8,110}${color}\
+${offset 20}${color0}Swap:${color} ${swapperc}% ${if_match ${swapperc} <= 25}${color green}${else}${if_match ${swapperc} <= 50}${color yellow}${else}${if_match ${swapperc} <= 75}${color orange}${else}${color red}${endif}${endif}${endif}${swapbar 8,110}${color}\
+${offset 20}${color0}Root:${color} ${fs_used_perc /}% ${if_match ${fs_used_perc /} <= 25}${color green}${else}${if_match ${fs_used_perc /} <= 50}${color yellow}${else}${if_match ${fs_used_perc /} <= 75}${color orange}${else}${color red}${endif}${endif}${endif}${fs_bar 8,110 /}${color}\
+${offset 20}${color0}Home:${color} ${fs_used_perc /home}% ${if_match ${fs_used_perc /home} <= 25}${color green}${else}${if_match ${fs_used_perc /home} <= 50}${color yellow}${else}${if_match ${fs_used_perc /home} <= 75}${color orange}${else}${color red}${endif}${endif}${endif}${fs_bar 8,110 /home}${color}\
+${offset 20}${color0}Battery:${color} ${battery_percent BAT0}% ${if_match ${battery_percent} <= 25}${color red}${else}${if_match ${battery_percent} <= 50}${color yellow}${else}${if_match ${battery_percent} <= 75}${color green}${else}${color green}${endif}${endif}${endif}${battery_bar 8,110 BAT0}${color}
+${goto 75}${freq_g (0)} GHz\
+${goto 245}${mem}/${memfree}\
+${goto 460}${swap}/${swapfree}\
+${goto 645}${fs_free /}/${fs_size /}\
+${goto 850}${fs_free /home}/${fs_size /home}\
+${goto 1055}${battery_status BAT0}
+
+]];
+
+
+
+
+
+
+
+
+
+
+
+
+
